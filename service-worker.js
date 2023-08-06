@@ -5,11 +5,13 @@ self.addEventListener('install', function(event) {
         return cache.addAll([
           '/',
           '/index.html',
-          '/manifest.json', // Add the manifest file to the cache list
-          '/icons/icon-48x48.png', // Add all the icon files to the cache list
+          '/main.js',
+          /* Add more assets to cache */
+          '/icons/icon-48x48.png',
           '/icons/icon-96x96.png',
           '/icons/icon-192x192.png',
-          '/icons/icon-512x512.png'
+          '/icons/icon-512x512.png',
+          /* Add more icon sizes if needed */
         ]);
       })
     );
@@ -21,5 +23,4 @@ self.addEventListener('install', function(event) {
         return response || fetch(event.request);
       })
     );
-  });
-  
+  });  
