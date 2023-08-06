@@ -6,12 +6,10 @@ self.addEventListener('install', function(event) {
           '/',
           '/index.html',
           '/main.js',
-          /* Add more assets to cache */
-          '/icons/icon-48x48.png',
-          '/icons/icon-96x96.png',
-          '/icons/icon-192x192.png',
-          '/icons/icon-512x512.png',
-          /* Add more icon sizes if needed */
+          '/icon-48x48.png',
+          '/icon-96x96.png',
+          '/icon-192x192.png',
+          '/icon-512x512.png'
         ]);
       })
     );
