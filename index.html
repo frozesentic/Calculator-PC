@@ -65,6 +65,7 @@
   <head>
     <title>Online Utils</title>
     <link rel="icon" href="2344132.png" type="image/x-icon">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
     <h1>Calculator</h1>
@@ -110,6 +111,12 @@
       // Move the equal button to the right side
       const equalKeyContainer = document.getElementById('equal-key-container');
     equalKeyContainer.style.gridColumn = 'span 1';
+
+  // Clear the calculator completely
+  function clearCalculator() {
+    displayValue = '';
+    updateDisplay();
+  }
 
   function appendCharacter(character) {
     displayValue += character;
@@ -238,20 +245,11 @@
     }
 
     function appendCharacter(character) {
-      if (displayValue === 'Error') {
-        clearCalculator();
-      }
-      displayValue += character;
-      updateDisplay();
+    if (displayValue === 'Error' || displayValue === 'undefined') {
+    clearCalculator();
     }
-
-            // Clear the calculator after getting a undefined
-    function appendCharacter(character) {
-      if (displayValue === 'undefined') {
-        clearCalculator();
-      }
-      displayValue += character;
-      updateDisplay();
+     displayValue += character;
+    updateDisplay();
     }
 
         // Reset the calculator when "CE" is clicked
@@ -261,6 +259,18 @@
         updateDisplay();
       }
     }
+
+    function clearAll() {
+    displayValue = '';
+    updateDisplay();
+  }
   </script>
 </body>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
+</script>
 </html>
