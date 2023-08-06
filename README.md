@@ -8,8 +8,8 @@
 
 ![calc](https://github.com/frozesentic/calculator/assets/99868523/8bdb0282-27a0-4ed5-8a23-948bcb4edeb4)
 
-2. Download the "calc.Setup.1.0.0.exe" file
+2. Download the "calc.setup.exe" file
 
 ![calc (1)](https://github.com/frozesentic/calculator/assets/99868523/7877ab64-33f4-4e5f-82d6-f82616ed1cad)
 
-3. Double click the calc.Setup.1.0.0.exe" file and the calculator will open
+3. Double click the "calc.Setup.exe" file and the calculator will open
