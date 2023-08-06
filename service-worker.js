@@ -6,7 +6,6 @@ self.addEventListener('install', function(event) {
           '/',
           '/index.html',
           '/main.js',
-          '/styles.css',
           /* Add more assets to cache */
         ]);
       })
