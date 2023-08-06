@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    #calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #display {
+      grid-column: span 4;
+      padding: 10px;
+      font-size: 20px;
+      text-align: right;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f7f7f7;
+    }
+
+    button:hover {
+      background-color: #e3e3e3;
+    }
+    .main-buttons {
+    background-color: #3498db; /* Light blue color for the 9 main numbers */
+    }
+
+    .main-buttons:hover {
+    background-color: #2980b9; /* Darker shade when hovered */
+    }
+
+    #equal-key-container button {
+      grid-column: span 1;
+      width: 100%;
+      background-color: #f2ff7e; /* Light blue color for the 9 main numbers */
+    }
+
+    #equal-key-container button:hover {
+      background-color: #e0e057; /* Darker shade when hovered */
+    }
+</style>
+  <head>
+    <title>Online Utils</title>
+    <link rel="icon" href="2344132.png" type="image/x-icon">
+</head>
+<body>
+    <h1>Calculator</h1>
+    <div id="calculator">
+      <input type="text" id="display" disabled>
+      <button onclick="clearEntry()">CE</button>
+      <button onclick="clearAll()">AC</button>
+      <button onclick="toggleSign()">+/-</button>
+      <button onclick="appendCharacter('%')">%</button>
+      <button class="main-buttons" onclick="appendCharacter('7')">7</button>
+      <button class="main-buttons" onclick="appendCharacter('8')">8</button>
+      <button class="main-buttons" onclick="appendCharacter('9')">9</button>
+      <button onclick="appendCharacter('*')">&#215;</button>
+      <button class="main-buttons" onclick="appendCharacter('4')">4</button>
+      <button class="main-buttons" onclick="appendCharacter('5')">5</button>
+      <button class="main-buttons" onclick="appendCharacter('6')">6</button>
+      <button onclick="appendCharacter('-')">&#8722;</button>
+      <button class="main-buttons" onclick="appendCharacter('1')">1</button>
+      <button class="main-buttons" onclick="appendCharacter('2')">2</button>
+      <button class="main-buttons" onclick="appendCharacter('3')">3</button>
+      <button onclick="appendCharacter('+')">&#43;</button>
+      <button class="main-buttons" onclick="appendCharacter('0')">0</button>
+      <button onclick="appendCharacter('.')">.</button>
+      <div id="equal-key-container">
+        <button onclick="calculateResult()">=</button>
+      </div>
+      <button onclick="appendCharacter('/')">&#247;</button>
+      <button onclick="calculatePower()">xy</button>
+      <button onclick="calculateSquareRoot()">√x</button>
+      <button onclick="calculatePi()">π</button>
+      <button onclick="roundTo2Decimals()">R2</button>
+      <button onclick="roundTo0Decimals()">R0</button>
+      <button onclick="memoryClear()">mc</button>
+      <button onclick="memoryRecall()">mr</button>
+      <button onclick="memoryMinus()">m-</button>
+      <button onclick="memoryPlus()">m+</button>
+    </div>
+
+  <script>
+
+  let displayValue = '';
+
+      // Move the equal button to the right side
+      const equalKeyContainer = document.getElementById('equal-key-container');
+    equalKeyContainer.style.gridColumn = 'span 1';
+
+  function appendCharacter(character) {
+    displayValue += character;
+    updateDisplay();
+  }
+
+  function updateDisplay() {
+    document.getElementById('display').value = displayValue;
+  }
+
+  function clearDisplay() {
+    displayValue = '';
+    updateDisplay();
+  }
+
+  function deleteLastCharacter() {
+    displayValue = displayValue.slice(0, -1);
+    updateDisplay();
+  }
+
+  function calculateResult() {
+    try {
+      const result = eval(displayValue);
+      displayValue = String(result);
+      updateDisplay();
+    } catch (error) {
+      displayValue = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function calculatePower() {
+    try {
+      const powerIndex = displayValue.lastIndexOf('^');
+      if (powerIndex > -1) {
+        const base = displayValue.substring(0, powerIndex);
+        const exponent = displayValue.substring(powerIndex + 1);
+        const result = Math.pow(parseFloat(base), parseFloat(exponent));
+        displayValue = String(result);
+        updateDisplay();
+      }
+    } catch (error) {
+      displayValue = 'Error';
+      updateDisplay();
+    }
+  }
+
+  function calculateSquareRoot() {
+    try {
+      const result = Math.sqrt(eval(displayValue));
+      displayValue = String(result);
+      updateDisplay();
+    } catch (error) {
+      displayValue = 'Error';
+      updateDisplay();
+    }
+  }
+    
+    function calculatePi() {
+      displayValue = Math.PI.toString();
+      updateDisplay();
+    }
+
+    function roundTo2Decimals() {
+      try {
+        const result = Math.round(eval(displayValue) * 100) / 100;
+        displayValue = String(result);
+        updateDisplay();
+      } catch (error) {
+        displayValue = 'Error';
+        updateDisplay();
+      }
+    }
+
+    function roundTo0Decimals() {
+      try {
+        const result = Math.round(eval(displayValue));
+        displayValue = String(result);
+        updateDisplay();
+      } catch (error) {
+        displayValue = 'Error';
+        updateDisplay();
+      }
+    }
+
+    let memoryValue = 0;
+
+    function memoryClear() {
+      memoryValue = 0;
+    }
+
+    function memoryRecall() {
+      displayValue = String(memoryValue);
+      updateDisplay();
+    }
+
+    function memoryMinus() {
+      try {
+        memoryValue -= eval(displayValue);
+      } catch (error) {
+        displayValue = 'Error';
+        updateDisplay();
+      }
+    }
+
+    function memoryPlus() {
+      try {
+        memoryValue += eval(displayValue);
+      } catch (error) {
+        displayValue = 'Error';
+        updateDisplay();
+      }
+    }
+
+        // Trigger calculateResult() when Enter key is pressed
+        document.addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        calculateResult();
+      }
+    });
+
+        // Clear the calculator after getting a result or an error
+        function clearCalculator() {
+      displayValue = '';
+      updateDisplay();
+    }
+
+    function appendCharacter(character) {
+      if (displayValue === 'Error') {
+        clearCalculator();
+      }
+      displayValue += character;
+      updateDisplay();
+    }
+
+            // Clear the calculator after getting a undefined
+    function appendCharacter(character) {
+      if (displayValue === 'undefined') {
+        clearCalculator();
+      }
+      displayValue += character;
+      updateDisplay();
+    }
+
+        // Reset the calculator when "CE" is clicked
+        function clearEntry() {
+      if (displayValue !== '') {
+        displayValue = displayValue.slice(0, -1);
+        updateDisplay();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "calc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^25.4.0",
+    "electron-builder": "^22.9.1"
+  }
+}
