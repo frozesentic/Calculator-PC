@@ -2,16 +2,31 @@
 <html>
 <head>
   <title>Calculator</title>
-    <!-- Add icon links with the correct sizes and types -->
-    <link rel="icon" href="icon-48x48.png" sizes="48x48" type="image/png">
-    <link rel="icon" href="icon-96x96.png" sizes="96x96" type="image/png">
-    <link rel="icon" href="icon-192x192.png" sizes="192x192" type="image/png">
-    <link rel="icon" href="icon-512x512.png" sizes="512x512" type="image/png">
-  </head>
+  <!-- Add icon links with the correct sizes and types -->
+  <link rel="icon" href="icon-48x48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="icon-96x96.png" sizes="96x96" type="image/png">
+  <link rel="icon" href="icon-192x192.png" sizes="192x192" type="image/png">
+  <link rel="icon" href="icon-512x512.png" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" sizes="96x96" href="icon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="icon-152x152.png" />
+  <!-- Add more icons for different sizes if needed -->
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.01"> <!-- Add this meta tag -->
   <style>
+    /* Light mode styles */
     body {
       font-family: Arial, sans-serif;
       text-align: center;
+      background-color: #ffffff;
+      color: #000;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #333;
+      color: #fff;
     }
 
     h1 {
@@ -25,7 +40,7 @@
       max-width: 300px;
       margin: 0 auto;
       padding: 10px;
-      border: 1px solid #ccc;
+      border: 2px solid #ccc;
       border-radius: 5px;
     }
 
@@ -34,8 +49,9 @@
       padding: 10px;
       font-size: 20px;
       text-align: right;
-      border: 1px solid #ccc;
+      border: 2px solid #ccc;
       border-radius: 5px;
+      background-color: #fbff7f;
     }
 
     button {
@@ -44,78 +60,124 @@
       cursor: pointer;
       border: 1px solid #ccc;
       border-radius: 5px;
-      background-color: #f7f7f7;
+      color: black; /* Set button text color to black */
     }
 
     button:hover {
       background-color: #e3e3e3;
     }
+
+    /* Media query for mobile devices */
+    @media (max-width: 480px) {
+      #calculator {
+        max-width: 300px; /* Adjust calculator size for mobile */
+      }
+
+      button {
+        font-size: 16px; /* Decrease button font size for mobile */
+      }
+    }
+
     .main-buttons {
-    background-color: #3498db; /* Light blue color for the 9 main numbers */
+      background-color: #3498db; /* Light blue color for the 9 main numbers in light mode */
+      color: #fff; /* Text color for the main buttons in light mode */
     }
 
     .main-buttons:hover {
-    background-color: #2980b9; /* Darker shade when hovered */
+      background-color: #2980b9; /* Darker shade when hovered in light mode */
     }
 
     #equal-key-container button {
       grid-column: span 1;
       width: 100%;
-      background-color: #f2ff7e; /* Light blue color for the 9 main numbers */
+      background-color: #ff7e7e; /* Light red color for the "=" button in light mode */
+      color: #fff; /* Text color for the "=" button in light mode */
     }
 
     #equal-key-container button:hover {
-      background-color: #e0e057; /* Darker shade when hovered */
+      background-color: #e05757; /* Darker shade when hovered in light mode */
     }
-</style>
-  <head>
-    <title>Online Utils</title>
-    <link rel="icon" href="2344132.png" type="image/x-icon">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+
+/* Dark mode styles for buttons */
+body.dark-mode .main-buttons {
+  background-color: #3498db !important; /* Dark blue color for the 9 main numbers in dark mode */
+  color: #fff !important; /* Text color for the main buttons in dark mode */
+}
+
+body.dark-mode button:hover {
+  background-color: #2980b9 !important; /* Darker shade when hovered in dark mode */
+}
+
+body.dark-mode #equal-key-container button {
+  background-color: #ff7e7e !important; /* Light red color for the "=" button in dark mode */
+  color: #fff !important; /* Text color for the "=" button in dark mode */
+}
+
+    body.dark-mode #equal-key-container button:hover {
+      background-color: #e05757; /* Darker shade when hovered in dark mode */
+    }
+
+    #dark-mode-switch {
+      position: absolute;
+      top: 5px; /* Move the button 5px from the top */
+    }
+
+    #dark-mode-switch.light-mode {
+      position: absolute;
+      top: 5px; /* Move the button 5px from the top */
+    }
+  </style>
 </head>
 <body>
-    <h1>Calculator</h1>
-    <div id="calculator">
-      <input type="text" id="display" disabled>
-      <button onclick="clearEntry()">CE</button>
-      <button onclick="clearAll()">AC</button>
-      <button onclick="toggleSign()">+/-</button>
-      <button onclick="appendCharacter('%')">%</button>
-      <button class="main-buttons" onclick="appendCharacter('7')">7</button>
-      <button class="main-buttons" onclick="appendCharacter('8')">8</button>
-      <button class="main-buttons" onclick="appendCharacter('9')">9</button>
-      <button onclick="appendCharacter('*')">&#215;</button>
-      <button class="main-buttons" onclick="appendCharacter('4')">4</button>
-      <button class="main-buttons" onclick="appendCharacter('5')">5</button>
-      <button class="main-buttons" onclick="appendCharacter('6')">6</button>
-      <button onclick="appendCharacter('-')">&#8722;</button>
-      <button class="main-buttons" onclick="appendCharacter('1')">1</button>
-      <button class="main-buttons" onclick="appendCharacter('2')">2</button>
-      <button class="main-buttons" onclick="appendCharacter('3')">3</button>
-      <button onclick="appendCharacter('+')">&#43;</button>
-      <button class="main-buttons" onclick="appendCharacter('0')">0</button>
-      <button onclick="appendCharacter('.')">.</button>
-      <div id="equal-key-container">
-        <button onclick="calculateResult()">=</button>
-      </div>
-      <button onclick="appendCharacter('/')">&#247;</button>
-      <button onclick="calculatePower()">xy</button>
-      <button onclick="calculateSquareRoot()">√x</button>
-      <button onclick="calculatePi()">π</button>
-      <button onclick="roundTo2Decimals()">R2</button>
-      <button onclick="roundTo0Decimals()">R0</button>
-      <button onclick="memoryClear()">mc</button>
-      <button onclick="memoryRecall()">mr</button>
-      <button onclick="memoryMinus()">m-</button>
-      <button onclick="memoryPlus()">m+</button>
+  <h1>Calculator</h1>
+  <div id="dark-mode-switch" onclick="toggleDarkMode()">
+    <span id="dark-mode-icon">🌙</span>
+    <span id="dark-mode-text">Dark Mode</span>
+  </div>
+  <div id="calculator">
+    <input type="text" id="display" disabled>
+    <button onclick="clearEntry()">CE</button>
+    <button onclick="clearAll()">AC</button>
+    <button onclick="toggleSign()">+/-</button>
+    <button onclick="appendCharacter('%')">%</button>
+    <button class="main-buttons" onclick="appendCharacter('7')">7</button>
+    <button class="main-buttons" onclick="appendCharacter('8')">8</button>
+    <button class="main-buttons" onclick="appendCharacter('9')">9</button>
+    <button onclick="appendCharacter('*')">&#215;</button>
+    <button class="main-buttons" onclick="appendCharacter('4')">4</button>
+    <button class="main-buttons" onclick="appendCharacter('5')">5</button>
+    <button class="main-buttons" onclick="appendCharacter('6')">6</button>
+    <button onclick="appendCharacter('-')">&#8722;</button>
+    <button class="main-buttons" onclick="appendCharacter('1')">1</button>
+    <button class="main-buttons" onclick="appendCharacter('2')">2</button>
+    <button class="main-buttons" onclick="appendCharacter('3')">3</button>
+    <button onclick="appendCharacter('+')">&#43;</button>
+    <button class="main-buttons" onclick="appendCharacter('0')">0</button>
+    <button onclick="appendCharacter('.')">.</button>
+    <div id="equal-key-container">
+      <button onclick="calculateResult()">=</button>
     </div>
+    <button onclick="appendCharacter('/')">&#247;</button>
+    <button onclick="calculatePower()">xy</button>
+    <button onclick="calculateSquareRoot()">√x</button>
+    <button onclick="calculatePi()">π</button>
+    <button onclick="roundTo2Decimals()">R2</button>
+    <button onclick="roundTo0Decimals()">R0</button>
+    <button onclick="memoryClear()">mc</button>
+    <button onclick="memoryRecall()">mr</button>
+    <button onclick="memoryMinus()">m-</button>
+    <button onclick="memoryPlus()">m+</button>
+  </div>
 
   <script>
-
+    
   let displayValue = '';
+  let lightModeDisplayValue = ''; // Store the displayValue for light mode
+  let darkModeDisplayValue = ''; // Store the displayValue for dark mode
+  let isDarkMode = false; // Keep track of the dark mode state
 
-      // Move the equal button to the right side
-      const equalKeyContainer = document.getElementById('equal-key-container');
+    // Move the equal button to the right side
+    const equalKeyContainer = document.getElementById('equal-key-container');
     equalKeyContainer.style.gridColumn = 'span 1';
 
   // Clear the calculator completely
@@ -270,6 +332,51 @@
     displayValue = '';
     updateDisplay();
   }
+
+  // Toggle dark mode function
+  function toggleDarkMode() {
+    const body = document.body;
+    const calculator = document.getElementById('calculator');
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+
+    if (body.classList.contains('dark-mode')) {
+      // Toggle off dark mode by refreshing the page
+      window.location.reload();
+    } else {
+      body.classList.add('dark-mode');
+      calculator.style.border = '2px solid #555';
+      display.style.backgroundColor = '#444';
+      display.style.color = '#fff';
+      buttons.forEach(button => {
+        button.style.backgroundColor = '#555';
+        button.style.color = '#fff';
+      });
+    }
+  }
+
+   // Toggle dark mode function
+   function toggleDarkMode() {
+    const body = document.body;
+    const darkModeSwitch = document.getElementById('dark-mode-switch');
+    const darkModeIcon = document.getElementById('dark-mode-icon');
+    const darkModeText = document.getElementById('dark-mode-text');
+
+    if (body.classList.contains('dark-mode')) {
+      // Toggle off dark mode
+      body.classList.remove('dark-mode');
+      darkModeSwitch.classList.remove('light-mode');
+      darkModeIcon.innerHTML = '🌙';
+      darkModeText.innerHTML = 'Dark Mode';
+    } else {
+      // Toggle on dark mode
+      body.classList.add('dark-mode');
+      darkModeSwitch.classList.add('light-mode');
+      darkModeIcon.innerHTML = '☀️';
+      darkModeText.innerHTML = 'Light Mode';
+    }
+  }
+
   </script>
 </body>
 <script>
